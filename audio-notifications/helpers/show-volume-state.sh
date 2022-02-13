@@ -1,7 +1,7 @@
 #!/bin/bash
 
-mute_state=$(pacmd list-sinks | grep muted | grep -Eo "yes|no")
-volume=$(amixer get Master | grep -Eo -m 1 '[[:digit:]]{1,3}%' | tr -d %)
+mute_state=$(pacmd list-sinks | tac | grep muted | grep -Eo -m1 "yes|no")
+volume=$(amixer -D pulse sget Master | grep -Eo -m 1 '[[:digit:]]{1,3}%' | tr -d %)
 icon=''
 
 if [ "$mute_state" = "no" ] ; then

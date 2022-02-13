@@ -1,3 +1,3 @@
 structure the project
-implement user providable commands and field changers
-make it possible to allow users to set the curve of volume adjustment using bezier curves
+implement user providable commands and field changers 
+make it possible to allow users to set the curve of volume adjustment using bezier curves or something similar
