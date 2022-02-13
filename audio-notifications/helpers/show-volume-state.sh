@@ -1,5 +1,9 @@
 #!/bin/bash
 
+export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u)/bus
+export DISPLAY=:0
+export XDG_RUNTIME_DIR=/run/user/$(id -u)
+
 mute_state=$(pacmd list-sinks | tac | grep muted | grep -Eo -m1 "yes|no")
 volume=$(amixer -D pulse sget Master | grep -Eo -m 1 '[[:digit:]]{1,3}%' | tr -d %)
 icon=''
@@ -21,7 +25,6 @@ volume_notification_id=$(cat /tmp/volume-notification-id)
 
 if [ -z $volume_notification_id ] ; then
     volume_notification_id=0
-    echo $volume_notification_id
 fi
 
 new_id=$(gdbus call --session --dest org.freedesktop.Notifications --object-path /org/freedesktop/Notifications --method org.freedesktop.Notifications.Notify volume-notification $volume_notification_id $icon '' ${volume}% [] {} 500 | grep -Eo [[:digit:]]*, | tr -d ,)

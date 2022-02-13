@@ -27,7 +27,8 @@ def handle_swipe_event(event):
                 vol += volume(dy_raw)
 
                 if vol > 1:
-                    os.system(f"amixer --quiet -D pulse sset Master {int(vol)}%{vol_sign}")
+                    # could do this better in an independent shell script
+                    os.system(f"export DISPLAY=:0 && export XDG_RUNTIME_DIR=/run/user/$(id -u) && amixer --quiet -D pulse sset Master {int(vol)}%{vol_sign}")
                     os.system("./audio-notifications/helpers/show-volume-state.sh")
                     vol = vol - int(vol)
 
@@ -38,7 +39,7 @@ state_function_mapper = defaultdict(lambda: lambda *args: 0)
 state_function_mapper[TouchpadState.GestureSwipeBegin] = handle_swipe_event
 
 # invoke libinput debug-events here
-libinput_process = subprocess.Popen(["sudo", "stdbuf", "-oL", "libinput", "debug-events", "--device", f"{config['GENERAL']['DEVICE']}"], bufsize = 1, stdout = subprocess.PIPE, text = True)
+libinput_process = subprocess.Popen(["stdbuf", "-oL", "libinput", "debug-events", "--device", f"{config['GENERAL']['DEVICE']}"], bufsize = 1, stdout = subprocess.PIPE, text = True)
 
 # main loop, read events and return here after
 while True:

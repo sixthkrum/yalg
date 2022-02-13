@@ -3,3 +3,9 @@ simple program to map libinput events to some commands, currently only controls 
 Required:
 libinput compatible touchpad,
 libinput-tools for your distro,
+
+to install:
+run setup.sh with root privileges, make sure the files are in the folder you want them to reside in
+
+to uninstall:
+run uninstall.sh with root privileges
