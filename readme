@@ -1,1 +1,5 @@
 simple program to map libinput events to some commands, currently only controls the volume with 4 finger gestures
+
+Required:
+libinput compatible touchpad,
+libinput-tools for your distro,
