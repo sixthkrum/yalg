@@ -8,8 +8,9 @@ libinput-tools for your distro,
 to install:
 setup the device properly in config.ini or this won't work. 
 Install libinput-tools then exec 'sudo libinput list-devices' find your touchpad there and write the value of the 'Kernel' field into config.ini's device field in the general section.
-Run setup.sh with root privileges, make sure the files are in the folder you want them to reside in.
+Run setup.sh WITHOUT root privileges, make sure the files are in the folder you want them to reside in.
 This is it, it should work now. If it doesn't check the status of the service, maybe uninstall and check input device field and reinstall.
 
+There might be an issue with the permissions of the temp file for the synchronous audio notification, chmod it to some appropriate permission or 777 :)
 to uninstall:
 run uninstall.sh with root privileges
